@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医草药 - 中医文化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513', 
+                        secondary: '#A67C52' 
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/herbs.css" rel="stylesheet">
+    <link href="./css/no-rounded.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 0 50px;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .carousel-content .max-w-7xl {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-content .max-w-2xl {
+            max-width: 600px;
+        }
+
+        .text-4xl {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .md\:text-5xl {
+                font-size: 3rem;
+            }
+
+            .md\:text-2xl {
+                font-size: 1.5rem;
+            }
+
+            .md\:text-lg {
+                font-size: 1.125rem;
+            }
+
+            .md\:px-8 {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+
+            .md\:py-3 {
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .md\:text-base {
+                font-size: 1rem;
+            }
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .text-base {
+            font-size: 1rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-normal {
+            font-weight: 400;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .ink-text {
+            color: #fff;
+        }
+        .text-primary {
+            color: #F5F0E1; 
+        }
+
+        .text-primary\/80 {
+            color: rgba(245, 240, 225, 0.8);
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .space-x-4 > * + * {
+            margin-left: 1rem;
+        }
+
+        .bg-primary {
+            background-color: #8B4513;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .px-6 {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+
+        .py-2 {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .px-8 {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .!rounded-button {
+            border-radius: 8px;
+        }
+
+        .hover\:bg-primary\/90:hover {
+            background-color: rgba(139, 69, 19, 0.9);
+        }
+
+        .transition-colors {
+            transition: background-color 0.3s ease;
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-primary {
+            border-color: #8B4513;
+        }
+
+        .hover\:bg-primary:hover {
+            background-color: #8B4513;
+        }
+
+        .hover\:text-white:hover {
+            color: #fff;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background-color: #fff;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-btn.prev {
+            left: 30px;
+        }
+
+        .carousel-btn.next {
+            right: 30px;
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active {
+            background-color: #8B4513;
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-stone-50 to-stone-100 min-h-screen">
+    <header class="relative flex flex-col">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item" style="background-image: url('图片/87193c091a5fbbabe41f38e77a0092a9.png')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    中医草药
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        本草精华 / 四气五味 / 君臣佐使 / 配伍禁忌
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">传统中药 滋养调理</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">探索中医药材的奥秘</p>
+                                <div class="flex space-x-4">
+                                    <button class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap text-sm md:text-base md:px-8 md:py-3">
+                                        浏览药材
+                                    </button>
+                                    <button class="border-2 border-primary text-primary px-8 py-3 !rounded-button hover:bg-primary hover:text-white transition-colors whitespace-nowrap">
+                                        配伍知识
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('图片/e462068b55bc549cb328b7977021c92e.png')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    传统药房
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        百年传承 / 地道药材 / 专业配药 / 品质保证
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">传统工艺 现代传承</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">探寻古老药房的智慧</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('图片/da347a01d02f2bc3e400af75cc392928.jpg')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    专业把关
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        品质鉴定 / 专业指导 / 合理用药 / 安全保障
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">严格质控 安全用药</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">守护您的健康</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="carousel-indicator active"></div>
+                <div class="carousel-indicator"></div>
+                <div class="carousel-indicator"></div>
+            </div>
+            <div class="carousel-btn prev">
+                <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="carousel-btn next">
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+        </div>
+
+        <nav class="fixed top-0 left-0 right-0 z-50 w-full px-8 py-6">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <a href="index.html" class="flex items-center"></a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-primary hover:text-primary/80 font-medium transition-colors">中医文化</a>
+                    <a href="herbs.html" class="text-primary hover:text-primary/80 font-medium transition-colors">中医草药</a>
+                    <a href="heritage.html" class="text-primary hover:text-primary/80 font-medium transition-colors">中医传承</a>
+                    <a href="meridians.html" class="text-primary hover:text-primary/80 font-medium transition-colors">中医经络</a>
+                    <a href="wellness.html" class="text-primary hover:text-primary/80 font-medium transition-colors">中医养生</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="login.html" class="text-primary hover:text-primary/80 font-medium transition-colors">登录</a>
+                    <a href="regiser.html" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+                        注册
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-8 py-12">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold ink-text mb-4">中医草药大全</h1>
+            <p class="text-lg text-primary/80">传统中药材，药食同源，健康养生</p>
+        </div>
+
+        <section class="mb-16">
+            <div class="bg-white rounded-xl shadow-lg p-8 traditional-border">
+                <h2 class="text-2xl font-bold ink-text mb-6" style="color: #000000">草药分类</h2>
+                <div class="flex flex-wrap gap-4 mb-8">
+                    <button class="category-btn active px-6 py-3 !rounded-button border-2 border-primary font-medium" data-category="all">
+                        全部草药
+                    </button>
+                    <button class="category-btn px-6 py-3 !rounded-button border-2 border-primary font-medium" data-category="tonifying">
+                        补益类
+                    </button>
+                    <button class="category-btn px-6 py-3 !rounded-button border-2 border-primary font-medium" data-category="clearing">
+                        清热类
+                    </button>
+                    <button class="category-btn px-6 py-3 !rounded-button border-2 border-primary font-medium" data-category="warming">
+                        温里类
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="herb-grid">
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="tonifying">
+                        <img src="图片/人参.jpg" alt="人参" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">人参</h3>
+                            <p class="text-sm text-primary mb-3">学名：Panax ginseng</p>
+                            <p class="text-gray-600 text-sm mb-4">大补元气，复脉固脱，补脾益肺，生津止渴，安神益智。用于体虚欲脱，肢冷脉微。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">补益类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('人参')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="tonifying">
+                        <img src="图片/黄芪.jpg" alt="黄芪" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">黄芪</h3>
+                            <p class="text-sm text-primary mb-3">学名：Astragalus membranaceus</p>
+                            <p class="text-gray-600 text-sm mb-4">补气固表，利尿托毒，排脓，敛疮生肌。用于气虚乏力，食少便溏，中气下陷。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">补益类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('黄芪')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="tonifying">
+                        <img src="图片/当归.jpg" alt="当归" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">当归</h3>
+                            <p class="text-sm text-primary mb-3">学名：Angelica sinensis</p>
+                            <p class="text-gray-600 text-sm mb-4">补血活血，调经止痛，润肠通便。用于血虚萎黄，眩晕心悸，月经不调。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">补益类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('当归')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="clearing">
+                        <img src="图片/金银花.jpg" alt="金银花" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">金银花</h3>
+                            <p class="text-sm text-primary mb-3">学名：Lonicera japonica</p>
+                            <p class="text-gray-600 text-sm mb-4">清热解毒，凉散风热。用于痈肿疔疮，喉痹，丹毒，热毒血痢，风热感冒。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">清热类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('金银花')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="clearing">
+                        <img src="图片/菊花.jpg" alt="菊花" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">菊花</h3>
+                            <p class="text-sm text-primary mb-3">学名：Chrysanthemum morifolium</p>
+                            <p class="text-gray-600 text-sm mb-4">散风清热，平肝明目，清热解毒。用于风热感冒，头痛眩晕，目赤肿痛。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">清热类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('菊花')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="herb-card bg-white rounded-lg shadow-md overflow-hidden border border-secondary/30" data-category="warming">
+                        <img src="图片/肉桂.jpg" alt="肉桂" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold ink-text mb-2"style="color: #000000">肉桂</h3>
+                            <p class="text-sm text-primary mb-3">学名：Cinnamomum cassia</p>
+                            <p class="text-gray-600 text-sm mb-4">补火助阳，引火归源，散寒止痛，活血通经。用于阳痿，宫冷，心腹冷痛。</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-primary font-semibold">温里类</span>
+                                <button class="text-primary hover:text-primary/80 text-sm font-medium" onclick="showHerbDetail('肉桂')">
+                                    查看详情
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">网站导航</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="index.html" class="text-secondary hover:text-white transition-colors">中医文化</a></li>
+                        <li><a href="herbs.html" class="text-secondary hover:text-white transition-colors">中医草药</a></li>
+                        <li><a href="heritage.html" class="text-secondary hover:text-white transition-colors">中医传承</a></li>
+                        <li><a href="meridians.html" class="text-secondary hover:text-white transition-colors">中医经络</a></li>
+                        <li><a href="wellness.html" class="text-secondary hover:text-white transition-colors">中医养生</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">用户中心</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="login.html" class="text-secondary hover:text-white transition-colors">用户登录</a></li>
+                        <li><a href="register.html" class="text-secondary hover:text-white transition-colors">注册账号</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-phone-line text-secondary"></i>
+                            <span class="text-secondary">123-456-789</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-map-pin-line text-secondary"></i>
+                            <span class="text-secondary">延吉市公园路977号延边大学</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-secondary/30 mt-8 pt-8 text-center">
+                <p class="text-secondary text-sm">
+                    © 2025 中医文化传承网站. 保留所有权利. |
+                    <a href="#" class="hover:text-white transition-colors">隐私政策</a> |
+                    <a href="#" class="hover:text-white transition-colors">使用条款</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const carouselInner = carousel.querySelector('.carousel-inner');
+        const indicators = carousel.querySelectorAll('.carousel-indicator');
+        const prevBtn = carousel.querySelector('.carousel-btn.prev');
+        const nextBtn = carousel.querySelector('.carousel-btn.next');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const itemCount = items.length;
+        let currentIndex = 0;
+
+        function updateIndicators() {
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function switchCarousel(index) {
+            carouselInner.style.transform = `translateX(-${index * 100}%)`;
+            currentIndex = index;
+            updateIndicators();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % itemCount;
+            switchCarousel(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+            switchCarousel(currentIndex);
+        }
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => switchCarousel(index));
+        });
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        let autoPlay = setInterval(nextSlide, 5000);
+        carousel.addEventListener('mouseenter', () => clearInterval(autoPlay));
+        carousel.addEventListener('mouseleave', () => autoPlay = setInterval(nextSlide, 5000));
+
+        document.querySelectorAll('.category-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                const category = button.dataset.category;
+                const cards = document.querySelectorAll('.herb-card');
+
+                cards.forEach(card => {
+                    card.style.display = (category === 'all' || card.dataset.category === category) ? 'block' : 'none';
+                });
+            });
+        });
+
+        function showHerbDetail(name) {
+            alert(`您点击了查看【${name}】的详情，该功能待完善`);
+        }
+    </script>
+    <script src="./js/carousel.js"></script>
+    <script src="./js/carousel-buttons.js"></script>
+    <script src="./js/navigation.js"></script>
+    <script src="./js/herbs.js"></script>
+</body>
+</html>

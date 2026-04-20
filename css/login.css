@@ -1,0 +1,18 @@
+/* login.css - 登录页面特定样式 */
+
+.auth-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid #8B4513;
+    box-shadow: 0 10px 25px rgba(139, 69, 19, 0.2);
+}
+
+.auth-input {
+    border: 2px solid #D2B48C;
+    transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+    border-color: #8B4513;
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+    outline: none;
+} 

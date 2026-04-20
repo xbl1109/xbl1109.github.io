@@ -1,0 +1,19 @@
+/* wellness.css - 中医养生页面特定样式 */
+
+.traditional-border {
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ink-text {
+    color: #4A3728;
+}
+
+.wellness-card {
+    transition: all 0.3s ease;
+}
+
+.wellness-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(139, 69, 19, 0.1);
+} 

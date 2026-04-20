@@ -1,0 +1,20 @@
+/* herbs.css - 中医草药页面特定样式 */
+
+.traditional-border {
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ink-text {
+    color: #2C3E50;
+}
+
+.category-btn.active {
+    background-color: #8B4513;
+    color: white;
+}
+
+.category-btn:hover {
+    background-color: #A0522D;
+    color: white;
+} 

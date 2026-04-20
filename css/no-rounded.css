@@ -1,0 +1,45 @@
+/* no-rounded.css - 移除所有圆角样式 */
+
+/* 移除所有圆角 */
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-full,
+.rounded-button,
+.rounded-t,
+.rounded-r,
+.rounded-b,
+.rounded-l,
+.rounded-tr,
+.rounded-tl,
+.rounded-br,
+.rounded-bl {
+    border-radius: 0 !important;
+}
+
+/* 覆盖特定组件的圆角 */
+.traditional-border,
+.carousel-btn,
+.herb-card,
+.carousel-indicator,
+.auth-container,
+button,
+input,
+.blob-shape {
+    border-radius: 0 !important;
+}
+
+/* 覆盖Tailwind的圆角类 */
+[class*="rounded"] {
+    border-radius: 0 !important;
+}
+
+/* 确保图片也没有圆角 */
+img.rounded-lg,
+img.rounded-full {
+    border-radius: 0 !important;
+} 

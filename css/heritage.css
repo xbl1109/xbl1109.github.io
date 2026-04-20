@@ -1,0 +1,10 @@
+/* heritage.css - 中医传承页面特定样式 */
+
+.traditional-border {
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ink-text {
+    color: #4A3728;
+} 

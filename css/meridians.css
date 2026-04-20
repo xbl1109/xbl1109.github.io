@@ -1,0 +1,19 @@
+/* meridians.css - 中医经络页面特定样式 */
+
+.traditional-border {
+    border: 2px solid #8B4513;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ink-text {
+    color: #4A3728;
+}
+
+.meridian-point {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.meridian-point:hover {
+    transform: scale(1.05);
+} 

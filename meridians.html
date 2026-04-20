@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医经络 - 中医文化</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513',
+                        secondary: '#D2B48C'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+    <link href="./css/meridians.css" rel="stylesheet">
+    <link href="./css/no-rounded.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "微软雅黑", "Microsoft Yahei", sans-serif;
+        }
+
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 700px;
+            overflow: hidden;
+        }
+
+        .carousel-inner {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            flex: 0 0 100%;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+        }
+
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+
+        .carousel-content {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 0 50px;
+            z-index: 2;
+            color: #fff;
+        }
+
+        .carousel-content .max-w-7xl {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .carousel-content .max-w-2xl {
+            max-width: 600px;
+        }
+
+        .text-4xl {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .md\:text-5xl {
+            font-size: 3rem;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-xl {
+            font-size: 1.25rem;
+        }
+
+        .md\:text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .text-base {
+            font-size: 1rem;
+        }
+
+        .md\:text-lg {
+            font-size: 1.125rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .font-normal {
+            font-weight: 400;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .leading-tight {
+            line-height: 1.2;
+        }
+
+        .ink-text {
+            color: #fff;
+        }
+
+        .text-primary {
+            color: #d9b38c;
+        }
+
+        .text-primary\/80 {
+            color: rgba(217, 179, 140, 0.8);
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 3;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-indicator.active {
+            background-color: #fff;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-btn:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .carousel-btn.prev {
+            left: 30px;
+        }
+
+        .carousel-btn.next {
+            right: 30px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-stone-50 to-stone-100 min-h-screen">
+    <header class="relative flex flex-col">
+        <div class="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item" style="background-image: url('图片/5102b022ab12fb2dc126a5d81a1e1bc6.jpg')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    中医经络
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        十二经脉 / 奇经八脉 / 穴位养生 / 经络调理
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">经络通畅 气血调和</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">探索人体能量通道</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('图片/01512aeb15c8493b6a62765a930b546a.png')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    针灸治疗
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        针刺手法 / 穴位定位 / 经络疗法 / 养生保健
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">传统针灸 现代应用</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">体验经络调理的奥妙</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('图片/37028722f079028605d48421ec80a4a3.png')">
+                    <div class="carousel-overlay"></div>
+                    <div class="carousel-content">
+                        <div class="max-w-7xl mx-auto w-full">
+                            <div class="max-w-2xl">
+                                <h1 class="text-4xl md:text-5xl font-bold ink-text mb-4 leading-tight">
+                                    推拿按摩
+                                    <div class="text-lg font-normal mt-2 text-primary">
+                                        经络推拿 / 穴位按摩 / 整脊正骨 / 小儿推拿
+                                    </div>
+                                </h1>
+                                <p class="text-xl md:text-2xl ink-text mb-3">手法调理 舒筋活络</p>
+                                <p class="text-base md:text-lg text-primary/80 mb-6">感受传统推拿的力量</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-indicators">
+                <div class="carousel-indicator active"></div>
+                <div class="carousel-indicator"></div>
+                <div class="carousel-indicator"></div>
+            </div>
+            <div class="carousel-btn prev">
+                <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="carousel-btn next">
+                <i class="ri-arrow-right-s-line"></i>
+            </div>
+        </div>
+
+        <nav class="fixed top-0 left-0 right-0 z-50 w-full px-8 py-6">
+            <div class="max-w-7xl mx-auto flex items-center justify-between">
+                <a href="index.html" class="flex items-center"></a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href='index.html' class="text-primary hover:text-primary/80 font-medium transition-colors">中医文化</a>
+                    <a href='herbs.html' class="text-primary hover:text-primary/80 font-medium transition-colors">中医草药</a>
+                    <a href='heritage.html' class="text-primary hover:text-primary/80 font-medium transition-colors">中医传承</a>
+                    <a href='meridians.html' class="text-primary hover:text-primary/80 font-medium transition-colors">中医经络</a>
+                    <a href='wellness.html' class="text-primary hover:text-primary/80 font-medium transition-colors">中医养生</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href='login.html' class="text-primary hover:text-primary/80 font-medium transition-colors">登录</a>
+                    <a href='register.html' class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+                        注册
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <main class="max-w-7xl mx-auto px-8 pt-32 pb-16">
+        <section class="mb-20">
+            <div class="bg-white rounded-xl shadow-lg p-8 traditional-border">
+                <h2 class="text-3xl font-bold mb-8" style="color:#000000">经络系统概述</h2>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <p class="text-gray-700 leading-relaxed">
+                            经络是中医特有的生理系统，核心作用是运行气血、联络脏腑肢节、沟通内外上下，是人体机能调节的“网络通路”。
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            经络系统的核心构成:
+                            十二经脉是主体，分为手足三阴经、手足三阳经，对应五脏六腑，左右对称分布，贯穿全身。
+                            奇经八脉（督脉、任脉等）不直接连属脏腑，负责调节十二经脉气血，如督脉为“阳脉之海”，任脉为“阴脉之海”。
+                            络脉是经脉的分支，包括十五别络、浮络、孙络，遍布体表和脏腑，实现气血的细微输布。
+                            附属部分有经别（深入体腔联络脏腑）、经筋（附着筋骨肌肉，主运动）、皮部（经脉在体表的分布区域）。
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            经络的核心功能:
+                            运行气血，为脏腑、组织、器官提供营养，维持生理活动。
+                            联络沟通，将五脏六腑、四肢百骸、五官九窍、皮肉筋骨等联结成有机整体。
+                            感应传导，传递病理信息（如脏腑病变反映于体表穴位）和治疗刺激（如针灸、按摩穴位调节脏腑）。
+                            调节平衡，通过气血输布调节人体阴阳、虚实，维持内环境稳定。
+                        </p>
+                        <p class="text-gray-700 leading-relaxed">
+                            经络的临床应用:诊断方面，通过穴位压痛、皮肤色泽变化等判断脏腑病变，如肝病可能在太冲穴出现压痛。治疗方面，针灸、推拿、艾灸等均以经络为依据，通过刺激穴位调节经络气血，如感冒针刺风池、列缺穴。养生方面，通过按摩经络循行部位、艾灸保健穴位（如足三里、关元），增强气血运行，预防疾病。
+                        </p>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="图片/经络图.jpg" alt="经络图" class="rounded-lg shadow-lg object-cover w-full h-80">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden traditional-border">
+                <div class="bg-primary text-white px-8 py-4">
+                    <h2 class="text-2xl font-bold">十二经脉</h2>
+                </div>
+                <div class="p-8">
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center">
+                            <img src="图片/手太阴肺经.webp" alt="手太阴肺经" class="w-full h-64 object-cover rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-semibold mb-2" style="color: #000000">手太阴肺经</h3>
+                            <p class="text-gray-600">主管呼吸，通调水道</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="图片/手少阴心经.webp" alt="手少阴心经" class="w-full h-64 object-cover rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-semibold mb-2" style="color: #000000">手少阴心经</h3>
+                            <p class="text-gray-600">主血脉，藏神志</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="图片/足厥阴肝经.v1" alt="足厥阴肝经" class="w-full h-64 object-cover rounded-lg shadow-md mb-4">
+                            <h3 class="text-xl font-semibold mb-2" style="color: #000000">足厥阴肝经</h3>
+                            <p class="text-gray-600">主疏泄，调节气机</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-20">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden traditional-border">
+                <div class="bg-primary text-white px-8 py-4">
+                    <h2 class="text-2xl font-bold" style="color: #000000">经络养生</h2>
+                </div>
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-12">
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-bold mb-4" style="color: #000000">经络保健</h3>
+                            <p class="text-gray-700 leading-relaxed">
+                                经络养生是中医养生保健的重要组成部分，通过各种方法疏通经络，促进气血运行，达到防病治病、强身健体的目的。
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-start space-x-3 cursor-pointer" onclick="openModal('modal1')">
+                                    <span class="text-gray-700">经络按摩：通过按摩穴位和经络，疏通气血 <span class="text-blue-500">(点击观看教程)</span></span>
+                                </div>
+                                <div id="modal1" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+                                    <div class="bg-white p-4 rounded-lg max-w-md w-full">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">经络按摩操作演示</h3>
+                                            <button onclick="closeModal('modal1')" class="text-gray-500">&times;</button>
+                                        </div>
+                                        <video controls class="w-full" src='视频/经络按摩.mp4'>你的浏览器不支持视频播放</video>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3 cursor-pointer" onclick="openModal('modal2')">
+                                    <span class="text-gray-700">导引功法：通过特定动作，活动经络，增强体质 <span class="text-blue-500">(点击观看教程)</span></span>
+                                </div>
+                                <div id="modal2" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+                                    <div class="bg-white p-4 rounded-lg max-w-md w-full">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">导引功法动作教学</h3>
+                                            <button onclick="closeModal('modal2')" class="text-gray-500">&times;</button>
+                                        </div>
+                                        <video controls class="w-full" src='视频/导引功法.mp4'>你的浏览器不支持视频播放</video>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3 cursor-pointer" onclick="openModal('modal3')">
+                                    <span class="text-gray-700">针灸疗法：通过针刺刺激穴位，调节经络功能 <span class="text-blue-500">(点击观看教程)</span></span>
+                                </div>
+                                <div id="modal3" class="fixed inset-0 bg-black/70 flex items-center justify-center hidden z-50">
+                                    <div class="bg-white p-4 rounded-lg max-w-md w-full">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <h3 class="font-bold">针灸疗法穴位示范</h3>
+                                            <button onclick="closeModal('modal3')" class="text-gray-500">&times;</button>
+                                        </div>
+                                        <video controls class="w-full" src='视频/针灸疗法.mp4'>你的浏览器不支持视频播放</video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <img src="图片/经络按摩.jpg" alt="经络按摩" class="rounded-lg shadow-lg object-cover w-full h-80">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-primary text-white py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">网站导航</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href='index.html' class="text-secondary hover:text-white transition-colors">中医文化</a></li>
+                        <li><a href='herbs.html' class="text-secondary hover:text-white transition-colors">中医草药</a></li>
+                        <li><a href='heritage.html' class="text-secondary hover:text-white transition-colors">中医传承</a></li>
+                        <li><a href='meridians.html' class="text-secondary hover:text-white transition-colors">中医经络</a></li>
+                        <li><a href='wellness.html' class="text-secondary hover:text-white transition-colors">中医养生</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">用户中心</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href='login.html' class="text-secondary hover:text-white transition-colors">用户登录</a></li>
+                        <li><a href='register.html' class="text-secondary hover:text-white transition-colors">注册账号</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-phone-line text-secondary"></i>
+                            <span class="text-secondary">123-456-789</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-map-pin-line text-secondary"></i>
+                            <span class="text-secondary">延吉市公园街977号延边大学</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-secondary/30 mt-8 pt-8 text-center">
+                <p class="text-secondary text-sm">
+                    © 2025 中医文化传承网站. 保留所有权利. | 
+                    <a href="#" class="hover:text-white transition-colors">隐私政策</a> | 
+                    <a href="#" class="hover:text-white transition-colors">使用条款</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const carousel = document.querySelector('.carousel');
+        const carouselInner = carousel.querySelector('.carousel-inner');
+        const indicators = carousel.querySelectorAll('.carousel-indicator');
+        const prevBtn = carousel.querySelector('.carousel-btn.prev');
+        const nextBtn = carousel.querySelector('.carousel-btn.next');
+        const items = carousel.querySelectorAll('.carousel-item');
+        const itemCount = items.length;
+        let currentIndex = 0;
+
+        function updateIndicators() {
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        function switchCarousel(index) {
+            carouselInner.style.transform = `translateX(-${index * 100}%)`;
+            currentIndex = index;
+            updateIndicators();
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % itemCount;
+            switchCarousel(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + itemCount) % itemCount;
+            switchCarousel(currentIndex);
+        }
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => switchCarousel(index));
+        });
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        let autoPlayTimer = setInterval(nextSlide, 5000);
+        carousel.addEventListener('mouseenter', () => clearInterval(autoPlayTimer));
+        carousel.addEventListener('mouseleave', () => autoPlayTimer = setInterval(nextSlide, 5000));
+    </script>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.remove('hidden');
+        }
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            const video = modal.querySelector('video');
+            if (video) video.pause();
+        }
+    </script>
+
+    <script src="./js/carousel.js"></script>
+    <script src="./js/carousel-buttons.js"></script>
+    <script src="./js/navigation.js"></script>
+</body>
+</html>
